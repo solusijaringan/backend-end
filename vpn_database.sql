@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 12 Mar 2020 pada 05.52
+-- Generation Time: 08 Apr 2020 pada 16.14
 -- Versi Server: 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -49,6 +49,28 @@ CREATE TABLE `kota` (
   `create_by` int(11) NOT NULL,
   `update_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `login`
+--
+
+CREATE TABLE `login` (
+  `id` int(11) NOT NULL,
+  `username` varchar(30) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `authKey` varchar(50) DEFAULT NULL,
+  `accessToken` varchar(50) DEFAULT NULL,
+  `role` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `login`
+--
+
+INSERT INTO `login` (`id`, `username`, `password`, `authKey`, `accessToken`, `role`) VALUES
+(1, 'admin', 'admin', 'mursit-12345', 'mumu2937412912zzzz', 'Admin');
 
 -- --------------------------------------------------------
 
@@ -106,7 +128,7 @@ CREATE TABLE `user` (
   `password` varchar(100) NOT NULL,
   `level` int(11) NOT NULL,
   `create_by` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_by` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `update_by` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -124,6 +146,12 @@ ALTER TABLE `ads`
 --
 ALTER TABLE `kota`
   ADD PRIMARY KEY (`id_kota`);
+
+--
+-- Indexes for table `login`
+--
+ALTER TABLE `login`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `order_by`
@@ -164,6 +192,12 @@ ALTER TABLE `ads`
 --
 ALTER TABLE `kota`
   MODIFY `id_kota` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `login`
+--
+ALTER TABLE `login`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `order_by`
