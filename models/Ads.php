@@ -42,12 +42,26 @@ class Ads extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_ads' => 'Id Ads',
+            'id' => 'Id',
             'judul_ads' => 'Judul Ads',
             'photo' => 'Photo',
             'posisi' => 'Posisi',
             'create_by' => 'Create By',
             'update_by' => 'Update By',
         ];
+    }
+
+    public function beforeSave($insert) {
+        if($this->isNewRecord)
+            $this->datecreated = date('Y-m-d H:i:s');
+        return true;
+    }
+
+    public function upload() {
+        $img = strtolower($this->photo->name);
+        $img = str_replace([' ', '+', '-', '=', '(', ')'], '-', $img);
+        $this->photo->saveAs(\Yii::getAlias('@public_path') . \Yii::$app->params['bannerFolder'] . $img);
+        $this->photo = $img;
+        return true;
     }
 }

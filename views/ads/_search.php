@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id_ads') ?>
+    <?= $form->field($model, 'id') ?>
 
     <?= $form->field($model, 'judul_ads') ?>
 
@@ -23,9 +23,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'posisi') ?>
 
-    <?= $form->field($model, 'create_by') ?>
+    <?= $form->field($model, 'created_at') ?>
 
-    <?php // echo $form->field($model, 'update_by') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
