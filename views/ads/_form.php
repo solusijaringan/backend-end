@@ -18,9 +18,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'posisi')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'create_by')->textInput() ?>
-
-    <?= $form->field($model, 'update_by')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

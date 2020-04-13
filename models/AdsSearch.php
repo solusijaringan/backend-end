@@ -17,7 +17,7 @@ class AdsSearch extends Ads
     public function rules()
     {
         return [
-            [['id_ads'], 'integer'],
+            [['id'], 'integer'],
             [['judul_ads', 'photo', 'posisi', 'create_by', 'update_by'], 'safe'],
         ];
     }
@@ -58,9 +58,9 @@ class AdsSearch extends Ads
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_ads' => $this->id_ads,
-            'create_by' => $this->create_by,
-            'update_by' => $this->update_by,
+            'id' => $this->id,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'judul_ads', $this->judul_ads])
