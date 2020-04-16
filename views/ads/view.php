@@ -42,6 +42,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'posisi',
+            [
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function($model){
+                    switch ($model->status):
+                        case 0:
+                            $status = 'Tidak Tampil';
+                            break;
+                        case 1:
+                            $status = '<span class="text-success"><strong>Tampil</strong></span>';
+                            break;
+                        default:
+                            $status = 'Hapus';
+                            break;
+                    endswitch;
+
+                    return $status;
+                },
+            ],
             'created_at',
             'updated_at',
         ],

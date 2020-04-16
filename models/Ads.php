@@ -30,7 +30,7 @@ class Ads extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['judul_ads', 'photo', 'posisi'], 'required'],
+            [['judul_ads', 'photo', 'posisi', 'status'], 'required'],
             [['photo'], 'file', 'extensions' => 'jpg, png, gif'],
             [['created_at', 'updated_at'], 'safe'],
             [['judul_ads', 'photo', 'posisi'], 'string', 'max' => 100],
@@ -50,6 +50,12 @@ class Ads extends \yii\db\ActiveRecord
             'create_by' => 'Create By',
             'update_by' => 'Update By',
         ];
+    }
+
+    public function scenarios() {
+        $skenario = parent::scenarios();
+        $skenario['update'] = ['updated_at', 'status'];
+        return $skenario;
     }
 
     public function beforeSave($insert) {

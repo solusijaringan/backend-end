@@ -23,7 +23,7 @@ class AdsController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+
                 ],
             ],
         ];
@@ -94,14 +94,25 @@ class AdsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_ads]);
+        $model->scenario = 'update';
+        $oldphoto = $model->photo;
+        if ($model->load(Yii::$app->request->post())) {
+            $model->photo = UploadedFile::getInstance($model, 'photo');
+            if(!empty($model->photo)){
+                $pathphoto = \Yii::getAlias('@webroot') . \Yii::$app->params['pathAds'] . $oldphoto;
+                if(is_file($pathphoto))
+                    unlink ($pathphoto);
+                $model->upload();
+            } else {
+                $model->photo = $oldphoto;
+            }
+            $model->save();
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -113,8 +124,9 @@ class AdsController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $model = $this->findModel($id);
+        $model->status = 2;
+        $model->save(false);
         return $this->redirect(['index']);
     }
 

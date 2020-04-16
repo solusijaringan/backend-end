@@ -18,6 +18,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'posisi')->textInput(['maxlength' => true]) ?>
 
+    <?=
+    $form->field($model, 'status')->radioList([
+        0 => 'Draft',
+        1 => 'Tampil',
+        2 => 'Hapus'
+    ])
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
