@@ -8,7 +8,7 @@ use app\models\AdsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\web\UploadedFile;
 /**
  * AdsController implements the CRUD actions for Ads model.
  */
@@ -66,8 +66,17 @@ class AdsController extends Controller
     {
         $model = new Ads();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_ads]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->photo = UploadedFile::getInstance($model, 'photo');
+            if($model->upload()){
+                $model->save();
+                // $this->createjson();
+            }
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
 
         return $this->render('create', [

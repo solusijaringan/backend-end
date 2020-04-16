@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Ads */
 
-$this->title = $model->id_ads;
+$this->title = $model->judul_ads;
 $this->params['breadcrumbs'][] = ['label' => 'Ads', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id_ads], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id_ads], [
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -31,7 +31,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'judul_ads',
-            'photo',
+            [
+                'attribute' => 'photo',
+                'format' => 'html', //raw, html,
+                'value' => function($model) {
+                    if(empty($model->photo))
+                        return '<span class="text-danger"><strong>Tidak ada image</strong></span>';
+
+                    return Html::img(\Yii::$app->request->baseUrl . '/public/images/ads/' . $model->photo, ['alt'=>$model->judul_ads, 'class'=>'img-thumbnail', 'width'=>'350px']);
+                }
+            ],
             'posisi',
             'created_at',
             'updated_at',
