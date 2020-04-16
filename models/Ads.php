@@ -30,8 +30,9 @@ class Ads extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['judul_ads', 'photo', 'posisi'], 'required'],
-            [['create_by', 'update_by'], 'safe'],
+            [['judul_ads', 'photo', 'posisi', 'status'], 'required'],
+            [['photo'], 'file', 'extensions' => 'jpg, png, gif'],
+            [['created_at', 'updated_at'], 'safe'],
             [['judul_ads', 'photo', 'posisi'], 'string', 'max' => 100],
         ];
     }
@@ -51,16 +52,23 @@ class Ads extends \yii\db\ActiveRecord
         ];
     }
 
+    public function scenarios() {
+        $skenario = parent::scenarios();
+        $skenario['update'] = ['updated_at', 'status'];
+        return $skenario;
+    }
+
     public function beforeSave($insert) {
         if($this->isNewRecord)
-            $this->datecreated = date('Y-m-d H:i:s');
+            $this->created_at = date('Y-m-d H:i:s');
+
         return true;
     }
 
     public function upload() {
         $img = strtolower($this->photo->name);
         $img = str_replace([' ', '+', '-', '=', '(', ')'], '-', $img);
-        $this->photo->saveAs(\Yii::getAlias('@public_path') . \Yii::$app->params['bannerFolder'] . $img);
+        $this->photo->saveAs(\Yii::getAlias('@webroot') . \Yii::$app->params['pathAds'] . $img);
         $this->photo = $img;
         return true;
     }
