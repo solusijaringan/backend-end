@@ -2,7 +2,7 @@
 
 $db = [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=sji',
+    'dsn' => 'mysql:host=solusijaringan.id:888;dbname=sji',
     'username' => 'sji',
     'password' => 'SJi@2019',
     'charset' => 'utf8',
@@ -15,9 +15,9 @@ $db = [
 if (YII_ENV_DEV) {
     $db = [
         'class' => 'yii\db\Connection',
-        'dsn' => 'mysql:host=47.56.123.172;dbname=sji',
+        'dsn' => 'mysql:host=solusijaringan.id;dbname=sji',
         'username' => 'sji',
-        'password' => 'SJi@2019',
+        'password' => 'YY8Jn8mZS6i3dac3',
         'charset' => 'utf8',
     ];
 }
